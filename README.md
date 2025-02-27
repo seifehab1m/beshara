@@ -33,7 +33,7 @@ This project is a fully responsive e-commerce web application that allows users 
 
 ## 🚀 Deployment
 This project is live and accessible at:
-👉 **[beshara.vercel.app](https://beshara.vercel.app/login)**
+👉 **[beshara.vercel.app](https://beshara.vercel.app)**
 
 ## Installation & Setup
 ### Prerequisites
