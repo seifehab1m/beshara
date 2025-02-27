@@ -17,7 +17,7 @@ import Contactus from "./pages/Contactus";
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbarRoutes = ["/sign-up", "/login"]; // Hide Navbar on these pages
+  const hideNavbarRoutes = ["/sign-up", "/login"]; 
 
   return (
     <>
