@@ -7,20 +7,21 @@ export default function Login() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    const storedUser = localStorage.getItem("userData");
-    if (!storedUser) {
-      message.error("No user found! Please register first.");
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const user = users.find(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (u: any) => u.email === values.email && u.password === values.password
+    );
+
+    if (!user) {
+      message.error("Invalid email or password! ❌");
       return;
     }
 
-    const user = JSON.parse(storedUser);
-
-    if (values.email === user.email && values.password === user.password) {
-      message.success("Login successful! ✅");
-      navigate("/");
-    } else {
-      message.error("Invalid email or password! ❌");
-    }
+    localStorage.setItem("activeUser", JSON.stringify(user));
+    message.success("Login successful! ✅");
+    navigate("/");
   };
 
   return (

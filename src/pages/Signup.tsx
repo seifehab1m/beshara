@@ -7,7 +7,16 @@ export default function Signup() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    localStorage.setItem("userData", JSON.stringify(values));
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (users.some((user: any) => user.email === values.email)) {
+      message.error("Email already registered!");
+      return;
+    }
+
+    users.push(values);
+    localStorage.setItem("users", JSON.stringify(users));
     message.success("Registration successful! ✅");
     navigate("/login");
   };

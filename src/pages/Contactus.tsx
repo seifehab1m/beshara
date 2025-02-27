@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ContactUs() {
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const onFinish = () => {
     message.success("Message sent! ✅");
     navigate("/");

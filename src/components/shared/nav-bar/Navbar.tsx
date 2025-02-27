@@ -1,4 +1,4 @@
-import { Layout, Menu, Button, Drawer } from "antd";
+import { Layout, Menu, Button, Drawer, message } from "antd";
 import { useState, useEffect } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,7 +23,8 @@ const Navbar: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("userData");
+    localStorage.removeItem("activeUser");
+    message.success("Logged out successfully! ✅");
     navigate("/login");
   };
 
@@ -48,7 +49,6 @@ const Navbar: React.FC = () => {
       {/* Desktop Menu */}
       <div className="hidden md:flex flex-1 justify-center">
         <Menu
-          theme="light"
           mode="horizontal"
           className="border-none flex justify-center min-w-[500px] max-w-[700px]"
           items={menuItems}

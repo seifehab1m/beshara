@@ -5,13 +5,13 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import Navbar from "./components/nav-bar/Navbar";
+import Navbar from "./components/shared/nav-bar/Navbar";
 import Signup from "./pages/Signup";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/MyCart";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/protected-route/ProtectedRoute";
+import ProtectedRoute from "./components/shared/protected-route/ProtectedRoute";
 import About from "./pages/About";
 import Contactus from "./pages/Contactus";
 
