@@ -11,3 +11,8 @@ body {
   font-family: "Cairo";
   overflow-x: hidden;
 }
+
+.ant-layout-header .ant-menu
+{
+  background-color: #f9fafb !important;
+}

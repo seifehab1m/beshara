@@ -95,25 +95,27 @@ export default function Cart() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-6 bg-gray-100 min-h-screen max-w-3xl mx-auto">
-        <Title level={2} className="text-center pt-14">
-          🛒 My Cart{" "}
-        </Title>
+      <div className="p-6 bg-gray-100 min-h-screen   mx-auto">
+        <div className=" max-w-3xl mx-auto">
+          <Title level={2} className="text-center pt-14">
+            🛒 My Cart{" "}
+          </Title>
 
-        {localCart.length === 0 ? (
-          <p className="text-center text-gray-500">No items in cart.</p>
-        ) : (
-          <div className="mt-6">
-            {localCart.map((item, index) => (
-              <DraggableCartItem
-                key={item.id}
-                item={item}
-                index={index}
-                moveItem={moveItem}
-              />
-            ))}
-          </div>
-        )}
+          {localCart.length === 0 ? (
+            <p className="text-center text-gray-500">No items in cart.</p>
+          ) : (
+            <div className="mt-6">
+              {localCart.map((item, index) => (
+                <DraggableCartItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  moveItem={moveItem}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </DndProvider>
   );

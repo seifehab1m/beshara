@@ -37,45 +37,47 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8 container">
-      <Title level={2} className="text-center text-gray-800 pt-14 pb-5">
-        🛍️ Product Categories
-      </Title>
+    <div className="bg-gray-50 min-h-screen py-8 ">
+      <div className="container">
+        <Title level={2} className="text-center text-gray-800 pt-14 pb-5">
+          🛍️ Product Categories
+        </Title>
 
-      {loading ? (
-        <div className="flex justify-center items-center h-40">
-          <Spin size="large" />
-        </div>
-      ) : (
-        <Collapse
-          accordion
-          className="bg-white rounded-lg shadow-lg"
-          onChange={(key) => {
-            fetchProducts(key?.[0]);
-          }}
-          items={categories.map((category) => ({
-            key: category,
-            label: (
-              <Title level={4} className="!mb-0 text-gray-700">
-                {category?.toUpperCase()}
-              </Title>
-            ),
-            children: products[category] ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 p-2">
-                {products[category]?.map((product) => (
-                  <Suspense key={product?.id} fallback={<Spin />}>
-                    <ProductCard product={product} />
-                  </Suspense>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-4">
-                <Spin />
-              </div>
-            ),
-          }))}
-        />
-      )}
+        {loading ? (
+          <div className="flex justify-center items-center h-40">
+            <Spin size="large" />
+          </div>
+        ) : (
+          <Collapse
+            accordion
+            className="bg-white rounded-lg shadow-lg"
+            onChange={(key) => {
+              fetchProducts(key?.[0]);
+            }}
+            items={categories.map((category) => ({
+              key: category,
+              label: (
+                <Title level={4} className="!mb-0 text-gray-700">
+                  {category?.toUpperCase()}
+                </Title>
+              ),
+              children: products[category] ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 p-2">
+                  {products[category]?.map((product) => (
+                    <Suspense key={product?.id} fallback={<Spin />}>
+                      <ProductCard product={product} />
+                    </Suspense>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-4">
+                  <Spin />
+                </div>
+              ),
+            }))}
+          />
+        )}
+      </div>
     </div>
   );
 }

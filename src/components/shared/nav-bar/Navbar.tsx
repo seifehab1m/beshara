@@ -40,14 +40,14 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <Layout.Header className="bg-white shadow-md fixed w-full top-0 z-50 flex items-center px-4">
+    <Layout.Header className="!bg-[#f9fafb] shadow-md fixed w-full top-0 z-50 flex items-center px-4">
       {/* Logo */}
       <div className="text-2xl font-bold text-primary">
         <Link to="/">Beshara</Link>
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex flex-1 justify-center">
+      <div className="!bg-[#f9fafb] hidden md:flex flex-1 justify-center">
         <Menu
           mode="horizontal"
           className="border-none flex justify-center min-w-[500px] max-w-[700px]"
