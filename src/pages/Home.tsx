@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Collapse, Spin, Card, Typography, message } from "antd";
-import { Link } from "react-router-dom";
+import { Collapse, Spin, Typography, message } from "antd";
 import { fetcher } from "../network/fetcher";
+import ProductCard from "../components/pages/home/ProductCard";
 
 const { Title } = Typography;
 
 export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [products, setProducts] = useState<{ [key: string]: any[] }>({});
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-8  container ">
-      <Title level={2} className="text-center text-gray-800 pt-14 pb-5">
+      <Title level={2} className="text-center text-gray-800 pt-14 pb-5 ">
         🛍️ Product Categories
       </Title>
 
@@ -57,41 +57,13 @@ export default function Home() {
             key: category,
             label: (
               <Title level={4} className="!mb-0 text-gray-700">
-                {category.toUpperCase()}
+                {category?.toUpperCase()}
               </Title>
             ),
             children: products[category] ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 p-2">
-                {products[category].map((product) => (
-                  <Card
-                    key={product.id}
-                    hoverable
-                    className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
-                    cover={
-                      <Link to={`/product/${product.id}`}>
-                        <img
-                          src={product.image}
-                          alt={product.title}
-                          className="h-52 object-contain mx-auto p-4 w-full"
-                        />
-                      </Link>
-                    }
-                  >
-                    <Title level={5} className="truncate">
-                      <Link
-                        to={`/product/${product.id}`}
-                        className="text-gray-800 hover:text-blue-600"
-                      >
-                        {product.title}
-                      </Link>
-                    </Title>
-                    <p className="text-gray-500 truncate">
-                      {product.description.substring(0, 80)}...
-                    </p>
-                    <p className="font-semibold mt-2 text-lg text-primary">
-                      ${product.price}
-                    </p>
-                  </Card>
+                {products[category]?.map((product) => (
+                  <ProductCard key={product?.id} product={product} />
                 ))}
               </div>
             ) : (

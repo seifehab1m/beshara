@@ -1,5 +1,5 @@
 import { Form, Input, Button, Card, message } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const [form] = Form.useForm();
@@ -57,6 +57,13 @@ export default function Login() {
               Login
             </Button>
           </Form.Item>
+
+          <p className="text-center text-sm">
+            Don't have an account?{" "}
+            <Link to="/sign-up" className="text-blue-500 hover:underline">
+              Sign up
+            </Link>
+          </p>
         </Form>
       </Card>
     </div>

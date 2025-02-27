@@ -10,20 +10,27 @@ import Signup from "./pages/Signup";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/MyCart";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbarRoutes = ["/sign-up","/login"]; // Define routes where Navbar should be hidden
+  const hideNavbarRoutes = ["/sign-up", "/login"]; // Hide Navbar on these pages
 
   return (
     <>
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Routes>
-        <Route path="/home" element={<Home />} />
+        {/* Public Routes */}
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/my-cart" element={<Cart />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="*" element={<NotFound />} />
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/my-cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+        </Route>
       </Routes>
     </>
   );

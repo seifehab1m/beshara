@@ -1,10 +1,11 @@
 import { Form, Input, Button, Card, message } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     localStorage.setItem("userData", JSON.stringify(values));
     message.success("Registration successful! ✅");
@@ -77,6 +78,13 @@ export default function Signup() {
               Register
             </Button>
           </Form.Item>
+
+          <p className="text-center text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Login
+            </Link>
+          </p>
         </Form>
       </Card>
     </div>

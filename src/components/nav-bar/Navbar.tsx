@@ -1,10 +1,31 @@
 import { Layout, Menu, Button, Drawer } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MenuOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<{
+    firstName: string;
+    lastName: string;
+  } | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("userData");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser({
+        firstName: parsedUser.firstName,
+        lastName: parsedUser.lastName,
+      });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    navigate("/login");
+  };
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -12,19 +33,19 @@ const Navbar: React.FC = () => {
 
   const menuItems = [
     { key: "home", label: <Link to="/home">Home</Link> },
-    { key: "login-info", label: "Login Info" },
     { key: "cart", label: <Link to="/my-cart">Cart</Link> },
     { key: "about", label: "About" },
     { key: "contact", label: "Contact Us" },
-    { key: "logout", label: "Log Out" },
   ];
 
   return (
-    <Layout.Header className=" bg-white shadow-md fixed w-full top-0 z-50 flex items-center">
+    <Layout.Header className="bg-white shadow-md fixed w-full top-0 z-50 flex items-center px-4">
+      {/* Logo */}
       <div className="text-2xl font-bold text-primary">
         <Link to="/">Beshara</Link>
       </div>
 
+      {/* Desktop Menu */}
       <div className="hidden md:flex flex-1 justify-center">
         <Menu
           theme="light"
@@ -34,7 +55,19 @@ const Navbar: React.FC = () => {
         />
       </div>
 
-      {/* Mobile Menu Button (Right) */}
+      {/* User Info + Logout */}
+      <div className="hidden md:flex items-center gap-4 ml-auto">
+        {user && (
+          <span className="font-medium text-gray-700">
+            {user.firstName} {user.lastName}
+          </span>
+        )}
+        <Button type="primary" danger onClick={handleLogout}>
+          Log Out
+        </Button>
+      </div>
+
+      {/* Mobile Menu Button */}
       <Button
         type="text"
         icon={<MenuOutlined className="text-2xl md:hidden" />}
@@ -51,6 +84,20 @@ const Navbar: React.FC = () => {
         className="md:hidden"
       >
         <Menu mode="vertical" items={menuItems} />
+        {user && (
+          <div className="mt-4 px-4 text-lg font-semibold">
+            {user.firstName} {user.lastName}
+          </div>
+        )}
+        <Button
+          type="primary"
+          danger
+          block
+          className="mt-4"
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
       </Drawer>
     </Layout.Header>
   );

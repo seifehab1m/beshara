@@ -12,7 +12,7 @@ const { Title, Paragraph } = Typography;
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
