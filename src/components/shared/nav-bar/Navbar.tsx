@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("userData");
+    const storedUser = localStorage.getItem("activeUser");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser({
