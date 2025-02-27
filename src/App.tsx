@@ -12,6 +12,8 @@ import Cart from "./pages/MyCart";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/protected-route/ProtectedRoute";
+import About from "./pages/About";
+import Contactus from "./pages/Contactus";
 
 function AppContent() {
   const location = useLocation();
@@ -27,9 +29,11 @@ function AppContent() {
         <Route path="*" element={<NotFound />} />
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/my-cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contactus" element={<Contactus />} />
         </Route>
       </Routes>
     </>

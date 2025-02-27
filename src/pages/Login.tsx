@@ -17,7 +17,7 @@ export default function Login() {
 
     if (values.email === user.email && values.password === user.password) {
       message.success("Login successful! ✅");
-      navigate("/home");
+      navigate("/");
     } else {
       message.error("Invalid email or password! ❌");
     }

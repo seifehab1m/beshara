@@ -32,10 +32,10 @@ const Navbar: React.FC = () => {
   };
 
   const menuItems = [
-    { key: "home", label: <Link to="/home">Home</Link> },
+    { key: "home", label: <Link to="/">Home</Link> },
     { key: "cart", label: <Link to="/my-cart">Cart</Link> },
-    { key: "about", label: "About" },
-    { key: "contact", label: "Contact Us" },
+    { key: "about", label: <Link to="/about">About</Link> },
+    { key: "contact", label: <Link to="/contactus">Contact Us</Link> },
   ];
 
   return (
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
       <div className="hidden md:flex items-center gap-4 ml-auto">
         {user && (
           <span className="font-medium text-gray-700">
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </span>
         )}
         <Button type="primary" danger onClick={handleLogout}>
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
         <Menu mode="vertical" items={menuItems} />
         {user && (
           <div className="mt-4 px-4 text-lg font-semibold">
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </div>
         )}
         <Button

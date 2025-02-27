@@ -16,7 +16,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <Card
       key={product?.id}
       hoverable
-      className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+      className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl max-w-sm sm:mx-0 mx-auto "
       cover={
         <Link to={`/product/${product?.id}`}>
           <img
