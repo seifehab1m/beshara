@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { RootState } from "../store/store";
 import { fetcher } from "../network/fetcher";
+import { ShoppingCart, XCircle } from "lucide-react";
 
 const { Title, Paragraph } = Typography;
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -50,8 +51,14 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-      <Card className="max-w-2xl shadow-lg rounded-lg p-4 bg-white">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 py-20">
+      <Card className="relative max-w-2xl shadow-lg rounded-lg p-4 bg-white">
+        <button
+          onClick={handleCartAction}
+          className="absolute top-4 right-4 text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full shadow-md transition-all"
+        >
+          {isInCart ? <XCircle size={24} /> : <ShoppingCart size={24} />}
+        </button>
         <img
           src={product.image}
           alt={product.title}
@@ -70,16 +77,6 @@ export default function ProductDetails() {
         <Paragraph className="text-yellow-500">
           ⭐ {product.rating.rate} ({product.rating.count} reviews)
         </Paragraph>
-
-        <Button
-          type={isInCart ? "default" : "primary"}
-          className="w-full mt-4"
-          size="large"
-          danger={isInCart}
-          onClick={handleCartAction}
-        >
-          {isInCart ? "Remove from Cart" : "Add to My Cart"}
-        </Button>
       </Card>
     </div>
   );

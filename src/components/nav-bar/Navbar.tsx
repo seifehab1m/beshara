@@ -13,20 +13,18 @@ const Navbar: React.FC = () => {
   const menuItems = [
     { key: "home", label: <Link to="/home">Home</Link> },
     { key: "login-info", label: "Login Info" },
-    { key: "cart", label:<Link to="/my-cart">Cart</Link> },
+    { key: "cart", label: <Link to="/my-cart">Cart</Link> },
     { key: "about", label: "About" },
     { key: "contact", label: "Contact Us" },
     { key: "logout", label: "Log Out" },
   ];
 
   return (
-    <Layout.Header className="bg-white shadow-md fixed w-full top-0 z-50 px-6 flex items-center">
-      {/* Brand Logo (Left) */}
+    <Layout.Header className=" bg-white shadow-md fixed w-full top-0 z-50 flex items-center">
       <div className="text-2xl font-bold text-primary">
-        <Link to="/">Brand</Link>
+        <Link to="/">Beshara</Link>
       </div>
 
-      {/* Centered Desktop Menu - Fixed Width */}
       <div className="hidden md:flex flex-1 justify-center">
         <Menu
           theme="light"

@@ -3,7 +3,6 @@ import { Collapse, Spin, Card, Typography, message } from "antd";
 import { Link } from "react-router-dom";
 import { fetcher } from "../network/fetcher";
 
-const { Panel } = Collapse;
 const { Title } = Typography;
 
 export default function Home() {
@@ -37,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8 px-4 container mx-auto">
+    <div className="bg-gray-50 min-h-screen py-8  container ">
       <Title level={2} className="text-center text-gray-800 pt-14 pb-5">
         🛍️ Product Categories
       </Title>
@@ -51,61 +50,56 @@ export default function Home() {
           accordion
           className="bg-white rounded-lg shadow-lg"
           onChange={(key) => {
-            const selectedCategory = Array.isArray(key) ? key[0] : key;
-            if (selectedCategory) fetchProducts(selectedCategory);
+            fetchProducts(key?.[0]);
           }}
-        >
-          {categories.map((category) => (
-            <Panel
-              header={
-                <Title level={4} className="!mb-0 text-gray-700">
-                  {category.toUpperCase()}
-                </Title>
-              }
-              key={category}
-            >
-              {products[category] ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-2">
-                  {products[category].map((product) => (
-                    <Card
-                      key={product.id}
-                      hoverable
-                      className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
-                      cover={
-                        <Link to={`/product/${product.id}`}>
-                          <img
-                            src={product.image}
-                            alt={product.title}
-                            className="h-52 object-contain mx-auto p-4 w-full"
-                          />
-                        </Link>
-                      }
-                    >
-                      <Title level={5} className="truncate">
-                        <Link
-                          to={`/product/${product.id}`}
-                          className="text-gray-800 hover:text-blue-600"
-                        >
-                          {product.title}
-                        </Link>
-                      </Title>
-                      <p className="text-gray-500 truncate">
-                        {product.description.substring(0, 80)}...
-                      </p>
-                      <p className="font-semibold mt-2 text-lg text-primary">
-                        ${product.price}
-                      </p>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-4">
-                  <Spin />
-                </div>
-              )}
-            </Panel>
-          ))}
-        </Collapse>
+          items={categories.map((category) => ({
+            key: category,
+            label: (
+              <Title level={4} className="!mb-0 text-gray-700">
+                {category.toUpperCase()}
+              </Title>
+            ),
+            children: products[category] ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 p-2">
+                {products[category].map((product) => (
+                  <Card
+                    key={product.id}
+                    hoverable
+                    className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+                    cover={
+                      <Link to={`/product/${product.id}`}>
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          className="h-52 object-contain mx-auto p-4 w-full"
+                        />
+                      </Link>
+                    }
+                  >
+                    <Title level={5} className="truncate">
+                      <Link
+                        to={`/product/${product.id}`}
+                        className="text-gray-800 hover:text-blue-600"
+                      >
+                        {product.title}
+                      </Link>
+                    </Title>
+                    <p className="text-gray-500 truncate">
+                      {product.description.substring(0, 80)}...
+                    </p>
+                    <p className="font-semibold mt-2 text-lg text-primary">
+                      ${product.price}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-4">
+                <Spin />
+              </div>
+            ),
+          }))}
+        />
       )}
     </div>
   );
