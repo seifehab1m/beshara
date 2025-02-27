@@ -25,7 +25,7 @@ function AppContent() {
       <Routes>
         {/* Public Routes */}
         <Route path="/sign-up" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route index path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
