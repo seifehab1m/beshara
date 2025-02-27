@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a fully responsive e-commerce web application that allows users to sign up, log in, browse product categories, and manage a shopping cart. The application implements authentication, state management, error handling, and performance optimizations. It is deployed and accessible at **[beshara.vercel.app](https://beshara.vercel.app/login)**.
+This project is a fully responsive e-commerce web application that allows users to sign up, log in, browse product categories, and manage a shopping cart. The application implements authentication, state management, error handling, and performance optimizations.
 
 ## Features
 
