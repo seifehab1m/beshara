@@ -32,12 +32,18 @@ const Navbar: React.FC = () => {
     setOpen(!open);
   };
 
-  const menuItems = [
-    { key: "home", label: <Link to="/">Home</Link> },
-    { key: "cart", label: <Link to="/my-cart">Cart</Link> },
-    { key: "about", label: <Link to="/about">About</Link> },
-    { key: "contact", label: <Link to="/contactus">Contact Us</Link> },
+  const menuLinks = [
+    { key: "home", path: "/", label: "Home" },
+    { key: "cart", path: "/my-cart", label: "Cart" },
+    { key: "about", path: "/about", label: "About" },
+    { key: "contact", path: "/contactus", label: "Contact Us" },
   ];
+  
+  const menuItems = menuLinks.map(({ key, path, label }) => ({
+    key,
+    label: <Link to={path} onClick={() => setOpen(false)}>{label}</Link>,
+  }));
+  
 
   return (
     <Layout.Header className="!bg-[#f9fafb] shadow-md fixed w-full top-0 z-50 flex items-center px-4">
@@ -77,6 +83,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       <Drawer
+
         title="Menu"
         placement="right"
         onClose={toggleMenu}
