@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Collapse, Spin, Typography, message } from "antd";
 import { fetcher } from "../network/fetcher";
-import ProductCard from "../components/pages/home/ProductCard";
 
 const { Title } = Typography;
+const ProductCard = lazy(() => import("../components/pages/home/ProductCard"));
 
 export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
   const [products, setProducts] = useState<{ [key: string]: any[] }>({});
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -37,8 +37,8 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8  container ">
-      <Title level={2} className="text-center text-gray-800 pt-14 pb-5 ">
+    <div className="bg-gray-50 min-h-screen py-8 container">
+      <Title level={2} className="text-center text-gray-800 pt-14 pb-5">
         🛍️ Product Categories
       </Title>
 
@@ -61,9 +61,11 @@ export default function Home() {
               </Title>
             ),
             children: products[category] ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-9 p-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 p-2">
                 {products[category]?.map((product) => (
-                  <ProductCard key={product?.id} product={product} />
+                  <Suspense key={product?.id} fallback={<Spin />}>
+                    <ProductCard product={product} />
+                  </Suspense>
                 ))}
               </div>
             ) : (
