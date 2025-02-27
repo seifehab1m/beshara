@@ -62,7 +62,7 @@ export default function Home() {
                 </Title>
               ),
               children: products[category] ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 p-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 p-2 w-full overflow-hidden">
                   {products[category]?.map((product) => (
                     <Suspense key={product?.id} fallback={<Spin />}>
                       <ProductCard product={product} />

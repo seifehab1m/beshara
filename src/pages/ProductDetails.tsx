@@ -12,7 +12,7 @@ const { Title, Paragraph } = Typography;
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,11 +52,11 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="relative flex justify-center items-center min-h-screen bg-gray-100 p-6 py-20">
-      <Card className="max-w-2xl shadow-lg rounded-lg p-4 bg-white">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 py-20">
+      <Card className="max-w-lg w-full shadow-lg rounded-lg p-6 bg-white relative">
         <button
           onClick={handleCartAction}
-          className="absolute top-2 right-2 bg-slate-100 hover:bg-slate-200 shadow-md rounded-full p-2  transition"
+          className="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 shadow-md rounded-full p-2 transition"
         >
           {isInCart ? (
             <X className="text-red-500" size={24} />
@@ -67,19 +67,21 @@ export default function ProductDetails() {
         <img
           src={product?.image}
           alt={product?.title}
-          className="w-64 mx-auto mb-4 object-contain"
+          className="w-64 mx-auto mb-4 object-contain max-h-60"
         />
-        <Title level={3} className="text-center">
+        <Title level={3} className="text-center text-gray-800">
           {product?.title}
         </Title>
-        <Paragraph className="text-gray-600">{product?.description}</Paragraph>
-        <Title level={4} className="text-primary">
+        <Paragraph className="text-gray-600 text-center">
+          {product?.description}
+        </Paragraph>
+        <Title level={4} className="text-primary text-center">
           ${product?.price}
         </Title>
-        <Paragraph className="text-gray-500">
+        <Paragraph className="text-gray-500 text-center">
           Category: {product?.category}
         </Paragraph>
-        <Paragraph className="text-yellow-500">
+        <Paragraph className="text-yellow-500 text-center">
           ⭐ {product?.rating.rate} ({product?.rating?.count} reviews)
         </Paragraph>
 
