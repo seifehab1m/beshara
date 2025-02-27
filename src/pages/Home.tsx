@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Collapse, Spin, Card, Typography } from "antd";
+import { Collapse, Spin, Card, Typography, message } from "antd";
 import { Link } from "react-router-dom";
+import { fetcher } from "../network/fetcher";
 
 const { Panel } = Collapse;
 const { Title } = Typography;
@@ -11,25 +12,27 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products/categories")
-      .then((res) => res.json())
+    fetcher("/products/categories")
       .then((data) => {
         setCategories(data);
         setLoading(false);
       })
-      .catch((error) => console.error("Error fetching categories:", error));
+      .catch(() => {
+        message.error("Error fetching categories! ");
+      });
   }, []);
 
   const fetchProducts = (category: string) => {
     if (!products[category]) {
-      fetch(`https://fakestoreapi.com/products/category/${category}`)
-        .then((res) => res.json())
+      fetcher(`/products/category/${category}`)
         .then((data) => {
           setProducts((prev) => ({ ...prev, [category]: data }));
+          setLoading(false);
         })
-        .catch((error) =>
-          console.error(`Error fetching products for ${category}:`, error)
-        );
+        .catch(() => {
+          message.error(`Error fetching products for ${category}! `);
+          setLoading(false);
+        });
     }
   };
 
@@ -69,7 +72,7 @@ export default function Home() {
                       hoverable
                       className="shadow-md rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl"
                       cover={
-                        <Link to={`/product/${product.id}`} >
+                        <Link to={`/product/${product.id}`}>
                           <img
                             src={product.image}
                             alt={product.title}

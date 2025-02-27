@@ -4,6 +4,7 @@ import { Card, Button, Typography, Spin, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { RootState } from "../store/store";
+import { fetcher } from "../network/fetcher";
 
 const { Title, Paragraph } = Typography;
 
@@ -17,13 +18,17 @@ export default function ProductDetails() {
   const isInCart = cartItems.some((item) => item.id === Number(id));
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then((res) => res.json())
+    if (!id) return;
+
+    fetcher(`/products/${id}`)
       .then((data) => {
         setProduct(data);
         setLoading(false);
       })
-      .catch((error) => console.error("Error fetching product:", error));
+      .catch(() => {
+        message.error("Error fetching product details! ");
+        setLoading(false);
+      });
   }, [id]);
 
   const handleCartAction = () => {
@@ -52,10 +57,16 @@ export default function ProductDetails() {
           alt={product.title}
           className="w-64 mx-auto mb-4 object-contain"
         />
-        <Title level={3} className="text-center">{product.title}</Title>
+        <Title level={3} className="text-center">
+          {product.title}
+        </Title>
         <Paragraph className="text-gray-600">{product.description}</Paragraph>
-        <Title level={4} className="text-primary">${product.price}</Title>
-        <Paragraph className="text-gray-500">Category: {product.category}</Paragraph>
+        <Title level={4} className="text-primary">
+          ${product.price}
+        </Title>
+        <Paragraph className="text-gray-500">
+          Category: {product.category}
+        </Paragraph>
         <Paragraph className="text-yellow-500">
           ⭐ {product.rating.rate} ({product.rating.count} reviews)
         </Paragraph>
