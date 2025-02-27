@@ -7,6 +7,7 @@ const { Title } = Typography;
 
 export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [products, setProducts] = useState<{ [key: string]: any[] }>({});
   const [loading, setLoading] = useState<boolean>(true);
 

@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { RootState } from "../store/store";
 import { fetcher } from "../network/fetcher";
-import { ShoppingCart, XCircle } from "lucide-react";
+import { ShoppingCart, X } from "lucide-react";
 
 const { Title, Paragraph } = Typography;
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -51,32 +52,46 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 py-20">
-      <Card className="relative max-w-2xl shadow-lg rounded-lg p-4 bg-white">
+    <div className="relative flex justify-center items-center min-h-screen bg-gray-100 p-6 py-20">
+      <Card className="max-w-2xl shadow-lg rounded-lg p-4 bg-white">
         <button
           onClick={handleCartAction}
-          className="absolute top-4 right-4 text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full shadow-md transition-all"
+          className="absolute top-2 right-2 bg-slate-100 hover:bg-slate-200 shadow-md rounded-full p-2  transition"
         >
-          {isInCart ? <XCircle size={24} /> : <ShoppingCart size={24} />}
+          {isInCart ? (
+            <X className="text-red-500" size={24} />
+          ) : (
+            <ShoppingCart className="text-blue-500" size={24} />
+          )}
         </button>
         <img
-          src={product.image}
-          alt={product.title}
+          src={product?.image}
+          alt={product?.title}
           className="w-64 mx-auto mb-4 object-contain"
         />
         <Title level={3} className="text-center">
-          {product.title}
+          {product?.title}
         </Title>
-        <Paragraph className="text-gray-600">{product.description}</Paragraph>
+        <Paragraph className="text-gray-600">{product?.description}</Paragraph>
         <Title level={4} className="text-primary">
-          ${product.price}
+          ${product?.price}
         </Title>
         <Paragraph className="text-gray-500">
-          Category: {product.category}
+          Category: {product?.category}
         </Paragraph>
         <Paragraph className="text-yellow-500">
-          ⭐ {product.rating.rate} ({product.rating.count} reviews)
+          ⭐ {product?.rating.rate} ({product?.rating?.count} reviews)
         </Paragraph>
+
+        <Button
+          type={isInCart ? "default" : "primary"}
+          className="w-full mt-4"
+          size="large"
+          danger={isInCart}
+          onClick={handleCartAction}
+        >
+          {isInCart ? "Remove from Cart" : "Add to My Cart"}
+        </Button>
       </Card>
     </div>
   );

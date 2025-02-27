@@ -1,11 +1,14 @@
-import { Form, Input, Button, Card } from "antd";
+import { Form, Input, Button, Card, message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    localStorage.setItem("userData", JSON.stringify(values));
+    message.success("Registration successful! ✅");
+    navigate("/login");
   };
 
   return (
@@ -16,7 +19,10 @@ export default function Signup() {
           <Form.Item
             label="First Name"
             name="firstName"
-            rules={[{ required: true, message: "First Name is required" }]}
+            rules={[
+              { required: true, message: "First Name is required" },
+              { min: 4, message: "First Name must be at least 4 characters" },
+            ]}
           >
             <Input placeholder="Enter First Name" />
           </Form.Item>
@@ -28,7 +34,10 @@ export default function Signup() {
           <Form.Item
             label="Username"
             name="username"
-            rules={[{ required: true, message: "Username is required" }]}
+            rules={[
+              { required: true, message: "Username is required" },
+              { min: 4, message: "Username must be at least 4 characters" },
+            ]}
           >
             <Input placeholder="Enter Username" />
           </Form.Item>
@@ -42,7 +51,7 @@ export default function Signup() {
                 pattern:
                   /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                 message:
-                  "Password must be at least 8 characters, include 1 uppercase letter, 1 number, and 1 special character",
+                  "Must be at least 8 chars, include 1 uppercase, 1 number, 1 special character",
               },
             ]}
           >
