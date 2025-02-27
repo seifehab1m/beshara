@@ -93,7 +93,7 @@ export default function Cart() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="p-6 bg-gray-100 min-h-screen max-w-3xl mx-auto">
-        <Title level={2} className="text-center">🛒 My Cart</Title>
+        <Title level={2} className="text-center pt-14">🛒 My Cart </Title>
 
         {localCart.length === 0 ? (
           <p className="text-center text-gray-500">No items in cart.</p>
