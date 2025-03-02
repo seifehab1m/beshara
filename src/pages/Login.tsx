@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen h-full bg-gray-100">
       <Card className="w-full max-w-md shadow-lg p-6 bg-white rounded-2xl">
         <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
         <Form form={form} layout="vertical" onFinish={onFinish}>
